@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Horizon Travels</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <style>
+    :root {
+      --primary: #005eff;
+      --accent: #25D366;
+      --background: url('horizobg.jpg') no-repeat center center fixed;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--background);
+      background-size: cover;
+      color: #222;
+    }
+    header {
+      background: linear-gradient(90deg, #003c8f, #005eff);
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .nav-buttons input {
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .nav-buttons button {
+      background: white;
+      color: var(--primary);
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      padding: 1.5rem;
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 1rem;
+      text-align: center;
+    }
+    .book-btn {
+      margin-top: 10px;
+      padding: 10px;
+      background: var(--accent);
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+    }
+    .glass-box {
+      max-width: 400px;
+      margin: 2rem auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      display: none;
+    }
+    .glass-box input, .glass-box button {
+      width: 80%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+    }
+    .glass-box button {
+      background: var(--primary);
+      color: white;
+      font-weight: bold;
+    }
+    .error {
+      color: red;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  
+  
+  /* CSS */
+.site-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  height: 105px;
+  margin-right: 1px;
+}
+  
+  .auth-box {
+  animation: fadeIn 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(12px);
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.auth-box h3 {
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  color: #003c8f;
+}
+
+.auth-box input {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.auth-box button {
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.auth-box button:first-of-type {
+  background-color: var(--primary);
+  color: white;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+  .typewriter {
+    overflow: hidden;
+    border-right: 2px solid white;
+    white-space: nowrap;
+    width: 0;
+    animation: typing 4s steps(40, end) forwards, blink 0.75s step-end infinite;
+  }
+
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+
+  @keyframes blink {
+    50% { border-color: transparent }
+  }
+  
+  
+  </style>
+</head>
+<body>
+
+   <!-- HTML -->
+<header class="site-header">
+  <img src="logo.png" alt="Your Logo" class="logo" />
+  <h2>HORIZON TOURS & TRAVELS </h2>
+
+    <div class="nav-buttons">
+      <input type="text" id="searchInput" placeholder="Search tours..." oninput="filterTours()">
+      <button onclick="showLogin()" id="loginBtn">Login</button>
+      <button onclick="showSignup()">Sign Up</button>
+      <button onclick="showAdmin()" id="adminBtn" style="display:none;">Admin</button>
+      <button onclick="showBookings()" id="bookingsBtn" style="display:none;">My Bookings</button>
+      <button onclick="logout()" id="logoutBtn" style="display:none;">Logout</button>
+    </div>
+  </header>
+  
+
+  <div id="login-form" class="glass-box auth-box">
+  <h3>Login to Your Account</h3>
+  <input type="email" id="email" placeholder="📧 Email address">
+  <input type="password" id="password" placeholder="🔒 Password">
+  <button onclick="login()">Login</button>
+  <button onclick="hideForms()" class="cancel-btn">Cancel</button>
+  <p class="error" id="loginError"></p>
+</div>
+
+<div id="signup-form" class="glass-box auth-box">
+  <h3>Create an Account</h3>
+  <input type="email" id="signupEmail" placeholder="📧 Email address">
+  <input type="password" id="signupPassword" placeholder="🔒 Password">
+  <button onclick="signup()">Sign Up</button>
+  <button onclick="hideForms()" class="cancel-btn">Cancel</button>
+  <p class="error" id="signupError"></p>
+</div>
+
+  <div id="admin-panel" class="glass-box">
+    <h3>Add/Edit Tour Package</h3>
+    <input type="text" id="tourName" placeholder="Tour Name">
+    <input type="text" id="tourDesc" placeholder="Description">
+    <input type="number" id="tourPrice" placeholder="Price">
+    <input type="text" id="tourImageUrl" placeholder="Image URL">
+    <button onclick="addTour()">Save Tour</button>
+    <p class="error" id="adminError"></p>
+  </div>
+
+  <div id="bookings-panel" class="glass-box">
+    <h3>My Bookings</h3>
+    <ul id="bookingsList" style="list-style: none; padding-left: 0;"></ul>
+  </div>
+
+  <main id="main-content">
+    <div id="package-grid" class="grid"></div>
+  </main>
+  
+  
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, collection, getDocs, addDoc, deleteDoc, query, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAY5EHhatd6lLZkexkMtpiMNNTclHLMCUE",
+      authDomain: "horizontoursind.firebaseapp.com",
+      projectId: "horizontoursind",
+      storageBucket: "horizontoursind.appspot.com",
+      messagingSenderId: "638398473424",
+      appId: "1:638398473424:web:d7b9429f0a1c9481496ad5"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const loginForm = document.getElementById("login-form");
+    const signupForm = document.getElementById("signup-form");
+    const adminPanel = document.getElementById("admin-panel");
+    const bookingsPanel = document.getElementById("bookings-panel");
+    const bookingsList = document.getElementById("bookingsList");
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const adminBtn = document.getElementById("adminBtn");
+    const bookingsBtn = document.getElementById("bookingsBtn");
+    const signupNavBtn = document.querySelector("button[onclick='showSignup()']");
+
+    let selectedTourId = null;
+
+    async function checkIfAdmin(uid) {
+      const docRef = await getDoc(doc(db, "users", uid));
+      return docRef.exists() && docRef.data().role === "admin";
+    }
+
+    window.login = function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      signInWithEmailAndPassword(auth, email, password)
+        .then(async ({ user }) => {
+          loginForm.style.display = "none";
+          loginBtn.style.display = "none";
+          signupForm.style.display = "none";
+          signupNavBtn.style.display = "none";
+          logoutBtn.style.display = "inline-block";
+          const isAdmin = await checkIfAdmin(user.uid);
+          if (isAdmin) {
+            adminPanel.style.display = "block";
+            adminBtn.style.display = "inline-block";
+            bookingsBtn.style.display = "none";
+          } else {
+            adminBtn.style.display = "none";
+            bookingsBtn.style.display = "inline-block";
+          }
+          
+        })
+        .catch((e) => document.getElementById("loginError").innerText = e.message);
+    };
+
+    window.signup = function () {
+      const email = document.getElementById("signupEmail").value;
+      const password = document.getElementById("signupPassword").value;
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(async ({ user }) => {
+          await setDoc(doc(db, "users", user.uid), {
+            email: user.email,
+            role: "user"
+          });
+          signupForm.style.display = "none";
+          alert("Account created! You can now log in.");
+        })
+        .catch(e => document.getElementById("signupError").innerText = e.message);
+    };
+
+    window.logout = function () {
+      signOut(auth).then(() => location.reload());
+    };
+
+    window.showLogin = () => {
+      loginForm.style.display = "block";
+      signupForm.style.display = "none";
+      adminPanel.style.display = "none";
+      bookingsPanel.style.display = "none";
+    };
+
+    window.showSignup = () => {
+      signupForm.style.display = "block";
+      loginForm.style.display = "none";
+      adminPanel.style.display = "none";
+      bookingsPanel.style.display = "none";
+    };
+
+  window.hideForms = () => {
+  loginForm.style.display = "none";
+  signupForm.style.display = "none";
+  document.getElementById("loginError").innerText = "";
+  document.getElementById("signupError").innerText = "";
+};
+  
+    window.showAdmin = async () => {
+      const user = auth.currentUser;
+      if (user && await checkIfAdmin(user.uid)) {
+        loginForm.style.display = "none";
+        signupForm.style.display = "none";
+        bookingsPanel.style.display = "none";
+        adminPanel.style.display = "block";
+      } else {
+        alert("Access denied.");
+      }
+    };
+
+    window.addTour = async () => {
+      const name = document.getElementById("tourName").value;
+      const desc = document.getElementById("tourDesc").value;
+      const price = parseFloat(document.getElementById("tourPrice").value);
+      const imageUrl = document.getElementById("tourImageUrl").value;
+
+      if (!name || !desc || !price || !imageUrl) {
+        document.getElementById("adminError").innerText = "All fields are required.";
+        return;
+      }
+
+      try {
+        const data = { name, description: desc, price, image: imageUrl };
+        if (selectedTourId) {
+          await setDoc(doc(db, "packages", selectedTourId), data);
+          alert("Tour updated!");
+        } else {
+          await addDoc(collection(db, "packages"), data);
+          alert("Tour added!");
+        }
+        selectedTourId = null;
+        document.getElementById("tourName").value = "";
+        document.getElementById("tourDesc").value = "";
+        document.getElementById("tourPrice").value = "";
+        document.getElementById("tourImageUrl").value = "";
+        loadPackages();
+      } catch (e) {
+        document.getElementById("adminError").innerText = e.message;
+      }
+    };
+
+    window.bookTour = async (name) => {
+      const user = auth.currentUser;
+      if (!user) return alert("Please log in to book.");
+      await addDoc(collection(db, "bookings"), {
+        userId: user.uid,
+        tourName: name,
+        timestamp: new Date()
+      });
+      window.open(`https://wa.me/917276595776?text=I want to book ${name}`, "_blank");
+    };
+
+    window.showBookings = async () => {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      bookingsPanel.style.display = "block";
+      loginForm.style.display = "none";
+      signupForm.style.display = "none";
+      adminPanel.style.display = "none";
+
+      bookingsList.innerHTML = "";
+      const q = query(collection(db, "bookings"), where("userId", "==", user.uid));
+      const snapshot = await getDocs(q);
+
+      if (snapshot.empty) {
+        bookingsList.innerHTML = "<li>No bookings found.</li>";
+        return;
+      }
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const li = document.createElement("li");
+        li.textContent = `${data.tourName} – ${new Date(data.timestamp.seconds * 1000).toLocaleString()}`;
+        bookingsList.appendChild(li);
+      });
+    };
+
+    window.filterTours = () => {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      const cards = document.querySelectorAll(".card");
+      cards.forEach(card => {
+        const name = card.querySelector("h3").innerText.toLowerCase();
+        card.style.display = name.includes(query) ? "block" : "none";
+      });
+    };
+
+    async function loadPackages() {
+      const container = document.getElementById("package-grid");
+      container.innerHTML = "";
+      const querySnapshot = await getDocs(collection(db, "packages"));
+      const user = auth.currentUser;
+      const isAdmin = user ? await checkIfAdmin(user.uid) : false;
+
+      querySnapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        const id = docSnap.id;
+        container.innerHTML += `
+          <div class="card">
+            <img src="${data.image}" />
+            <div class="card-content">
+              <h3>${data.name}</h3>
+              <p>${data.description}</p>
+              <strong>₹${data.price}</strong><br>
+              <a class="book-btn" href="javascript:void(0)" onclick="bookTour('${data.name}')">Book on WhatsApp</a>
+              ${isAdmin ? `<div style="margin-top: 10px;">
+                <button onclick="editTour('${id}')">✏️ Edit</button>
+                <button onclick="deleteTour('${id}')">🗑️ Delete</button>
+              </div>` : ''}
+            </div>
+          </div>`;
+      });
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+        signupForm.style.display = "none";
+        signupNavBtn.style.display = "none";
+        const isAdmin = await checkIfAdmin(user.uid);
+        if (isAdmin) {
+          adminBtn.style.display = "inline-block";
+          bookingsBtn.style.display = "none";
+        } else {
+          adminBtn.style.display = "none";
+          bookingsBtn.style.display = "inline-block";
+        }
+      } else {
+        adminBtn.style.display = "none";
+        logoutBtn.style.display = "none";
+        loginBtn.style.display = "inline-block";
+        signupNavBtn.style.display = "inline-block";
+        bookingsBtn.style.display = "none";
+      }
+      loadPackages();
+    });
+
+  window.editTour = async (id) => {
+  try {
+    const tourRef = doc(db, "packages", id);
+    const tourSnap = await getDoc(tourRef);
+
+    if (tourSnap.exists()) {
+      const data = tourSnap.data();
+      document.getElementById("tourName").value = data.name;
+      document.getElementById("tourDesc").value = data.description;
+      document.getElementById("tourPrice").value = data.price;
+      document.getElementById("tourImageUrl").value = data.image;
+
+      selectedTourId = id;
+      adminPanel.style.display = "block";
+    } else {
+      alert("Tour not found.");
+    }
+  } catch (error) {
+    alert("Error loading tour: " + error.message);
+  }
+};
+
+window.deleteTour = async (id) => {
+  if (confirm("Are you sure you want to delete this tour?")) {
+    try {
+      await deleteDoc(doc(db, "packages", id));
+      alert("Tour deleted.");
+      loadPackages(); // refresh the list
+    } catch (error) {
+      alert("Error deleting tour: " + error.message);
+    }
+  }
+};
+  
+    
+  </script>
+  <footer class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
+  <p class="typewriter" text-white text-sm sm:text-base font-medium">........................Developed with ❤️ by Kshitij G Yerawar.........................</p>
+</footer>
+
+</body>
+
+</html>
